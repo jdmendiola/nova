@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "4a763409-5475-42a4-808b-419170f4a4cc",
+  "id": "2c49529d-14db-4960-a033-4043e60e2353",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "classes": {
@@ -19,10 +19,29 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "classes_user_id_users_id_fk": {
+          "name": "classes_user_id_users_id_fk",
+          "tableFrom": "classes",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ]
+        }
+      },
       "compositePrimaryKeys": {}
     },
     "users": {

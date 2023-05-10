@@ -1,6 +1,8 @@
 CREATE TABLE `classes` (
 	`id` integer PRIMARY KEY NOT NULL,
-	`class` text
+	`class` text,
+	`user_id` integer,
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 );
 --> statement-breakpoint
 CREATE TABLE `users` (
