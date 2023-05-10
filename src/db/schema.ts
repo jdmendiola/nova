@@ -6,9 +6,8 @@ export const users = sqliteTable('users', {
   email: text('email').notNull(),
 });
 
-/*
 export const classes = sqliteTable('classes', {
   id: integer('id').primaryKey(),
   className: text('class'),
-})
-*/
+  userId: integer('user_id').references(() => users.id),
+});
