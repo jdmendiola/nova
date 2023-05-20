@@ -3,6 +3,10 @@ import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
 import Database from 'better-sqlite3';
 import { users } from './db/schema';
 import { classes } from './db/schema';
+import { userSessions } from './db/schema';
+import { workoutSession } from './db/schema';
+import { workouts } from './db/schema';
+import { exercises } from './db/schema';
 import { eq } from 'drizzle-orm';
 
 const sqlite = new Database('../novatest.db');
@@ -10,20 +14,18 @@ const db = drizzle(sqlite);
 
 migrate(db, { migrationsFolder: '../migrations' });
 
-/*
-db.insert(users)
-  .values([
-    {
-      name: 'David',
-      email: 'david@email.com',
-    },
-    {
-      name: 'John',
-      email: 'john@gmail.com',
-    },
-  ])
-  .run();
-*/
+// db.insert(workoutSession)
+//   .values([
+//     {
+//       userSessionId: 1,
+//       workoutsId: 1,
+//     },
+//     {
+//       userSessionId: 1,
+//       workoutsId: 2,
+//     },
+//   ])
+//   .run();
 
 /*
 
@@ -43,12 +45,20 @@ db.insert(classes)
 
 const joinTest = db
   .select({
-    id: classes.id,
-    class: classes.className,
-    user: users.name,
+    workOutSessionId: workoutSession.id,
+    exercise: exercises.name,
+    location: userSessions.location,
+    reps: workouts.reps,
+    set: workouts.set,
+    name: users.name,
   })
-  .from(classes)
-  .innerJoin(users, eq(classes.userId, users.id))
+  .from(workoutSession)
+  .leftJoin(workouts, eq(workoutSession.workoutsId, workouts.id))
+  .leftJoin(exercises, eq(workouts.exerciseId, exercises.id))
+  .leftJoin(userSessions, eq(workoutSession.userSessionId, userSessions.id))
+  .leftJoin(users, eq(userSessions.userId, users.id))
   .all();
 
-console.log('------------------------', joinTest);
+console.log(joinTest);
+
+//console.log(new Date());
