@@ -14,25 +14,18 @@ const db = drizzle(sqlite);
 
 migrate(db, { migrationsFolder: '../migrations' });
 
-db.insert(workouts)
-  .values([
-    {
-      exerciseId: 1,
-      reps: 10,
-      set: 1,
-    },
-    {
-      exerciseId: 1,
-      reps: 8,
-      set: 2,
-    },
-    {
-      exerciseId: 1,
-      reps: 5,
-      set: 3,
-    },
-  ])
-  .run();
+// db.insert(workoutSession)
+//   .values([
+//     {
+//       userSessionId: 1,
+//       workoutsId: 1,
+//     },
+//     {
+//       userSessionId: 1,
+//       workoutsId: 2,
+//     },
+//   ])
+//   .run();
 
 /*
 
@@ -50,16 +43,20 @@ db.insert(classes)
   .run();
 */
 
-// const joinTest = db
-//   .select({
-//     id: classes.id,
-//     class: classes.className,
-//     user: users.name,
-//   })
-//   .from(classes)
-//   .innerJoin(users, eq(classes.userId, users.id))
-//   .all();
+const joinTest = db
+  .select({
+    workOutSessionId: workoutSession.id,
+    exercise: exercises.name,
+    location: userSessions.location,
+    reps: workouts.reps,
+    set: workouts.set,
+  })
+  .from(workoutSession)
+  .leftJoin(workouts, eq(workoutSession.workoutsId, workouts.id))
+  .leftJoin(exercises, eq(workouts.exerciseId, exercises.id))
+  .leftJoin(userSessions, eq(workoutSession.userSessionId, userSessions.id))
+  .all();
 
-// console.log('------------------------', joinTest);
+console.log(joinTest);
 
-console.log(new Date());
+//console.log(new Date());
