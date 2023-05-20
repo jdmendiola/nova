@@ -50,11 +50,13 @@ const joinTest = db
     location: userSessions.location,
     reps: workouts.reps,
     set: workouts.set,
+    name: users.name,
   })
   .from(workoutSession)
   .leftJoin(workouts, eq(workoutSession.workoutsId, workouts.id))
   .leftJoin(exercises, eq(workouts.exerciseId, exercises.id))
   .leftJoin(userSessions, eq(workoutSession.userSessionId, userSessions.id))
+  .leftJoin(users, eq(userSessions.userId, users.id))
   .all();
 
 console.log(joinTest);
