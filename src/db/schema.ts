@@ -1,4 +1,3 @@
-import { exec } from 'child_process';
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
 export const users = sqliteTable('users', {
