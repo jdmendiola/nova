@@ -41,6 +41,8 @@ db.insert(classes)
     },
   ])
   .run();
+  .fast().run();
+  
 */
 
 const joinTest = db

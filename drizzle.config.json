@@ -1,5 +1,9 @@
 {
   "out": "./migrations",
   "schema": "src/db/schema.ts",
-  "breakpoints": true
+  "breakpoints": true,
+  "driver": "better-sqlite",
+  "dbCredentials": {
+    "url": "./novatest.db"
+  }
 }
