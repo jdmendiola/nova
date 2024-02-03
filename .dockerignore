@@ -1,0 +1,4 @@
+node_modules
+.vscode
+/Assets
+.DS_store

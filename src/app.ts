@@ -1,3 +1,5 @@
+import express from 'express';
+import bodyParser from 'body-parser';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
 import Database from 'better-sqlite3';
@@ -41,12 +43,11 @@ db.insert(classes)
   ])
   .run();
   .fast().run();
-  
+
 */
 
 const joinTest = db
   .select({
-    workOutSessionId: workoutSession.id,
     exercise: exercises.name,
     location: userSessions.location,
     reps: workouts.reps,
@@ -60,4 +61,15 @@ const joinTest = db
   .leftJoin(users, eq(userSessions.userId, users.id))
   .all();
 
-console.log(joinTest);
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json());
+
+app.get('/', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(joinTest);
+});
+
+app.listen(3000, () => console.log('Example app listening on port 3000!'));
