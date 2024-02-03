@@ -2,7 +2,6 @@ import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
 import Database from 'better-sqlite3';
 import { users } from './db/schema';
-import { classes } from './db/schema';
 import { userSessions } from './db/schema';
 import { workoutSession } from './db/schema';
 import { workouts } from './db/schema';
@@ -62,5 +61,3 @@ const joinTest = db
   .all();
 
 console.log(joinTest);
-
-//console.log(new Date());
