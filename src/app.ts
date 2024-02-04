@@ -10,10 +10,10 @@ import { workouts } from './db/schema';
 import { exercises } from './db/schema';
 import { eq } from 'drizzle-orm';
 
-const sqlite = new Database('../novatest.db');
+const sqlite = new Database('./novatest.db');
 const db = drizzle(sqlite);
 
-migrate(db, { migrationsFolder: '../migrations' });
+migrate(db, { migrationsFolder: './migrations' });
 
 // db.insert(workoutSession)
 //   .values([
