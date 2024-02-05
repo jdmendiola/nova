@@ -2,6 +2,16 @@
 
 # Adjust NODE_VERSION as desired
 ARG NODE_VERSION=20.11.0
+
+FROM node:${NODE_VERSION}-slim as ui
+
+WORKDIR /app/client 
+
+COPY /client/package-lock.json /client/package.json ./
+RUN npm install
+COPY /client /app/client/
+RUN npm run build
+
 FROM node:${NODE_VERSION}-slim as base
 
 LABEL fly_launch_runtime="Node.js"
@@ -38,6 +48,7 @@ RUN apt-get update -y && apt-get install -y ca-certificates fuse3 sqlite3
 
 # Copy built application
 COPY --from=build /app /app
+COPY --from=ui /app/client /app/client/
 
 # LiteFS
 COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
