@@ -1,12 +1,16 @@
-# fly.toml app configuration file generated for nova1 on 2024-02-04T12:59:26-05:00
+# fly.toml app configuration file generated for novatest on 2024-02-04T20:40:20-05:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'nova1'
+app = 'novatest'
 primary_region = 'yyz'
 
 [build]
+
+[[mounts]]
+  source = 'litefs'
+  destination = '/mnt/sqlite'
 
 [http_service]
   internal_port = 3000

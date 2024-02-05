@@ -8,11 +8,15 @@ import { userSessions } from './db/schema';
 import { workoutSession } from './db/schema';
 import { workouts } from './db/schema';
 import { exercises } from './db/schema';
-import { eq } from 'drizzle-orm';
+import { SQL, eq } from 'drizzle-orm';
+import minimist from 'minimist';
 
-const sqlite = new Database('./novatest.db');
+const argv = minimist(process.argv.slice(2));
+console.log('ARG V PROCESS', argv);
+console.log(argv['sqlite-path']);
+const SQLITE_PATH = argv['sqlite-path'] ?? './novatest.db';
+const sqlite = new Database('/data/novatest.db');
 const db = drizzle(sqlite);
-
 migrate(db, { migrationsFolder: './migrations' });
 
 // db.insert(workoutSession)
@@ -46,20 +50,11 @@ db.insert(classes)
 
 */
 
-const joinTest = db
-  .select({
-    exercise: exercises.name,
-    location: userSessions.location,
-    reps: workouts.reps,
-    set: workouts.set,
-    name: users.name,
-  })
-  .from(workoutSession)
-  .leftJoin(workouts, eq(workoutSession.workoutsId, workouts.id))
-  .leftJoin(exercises, eq(workouts.exerciseId, exercises.id))
-  .leftJoin(userSessions, eq(workoutSession.userSessionId, userSessions.id))
-  .leftJoin(users, eq(userSessions.userId, users.id))
-  .all();
+db.insert(users)
+  .values({ name: 'Justin Chu', email: 'blogger@blogger.com' })
+  .run();
+
+const joinTest = db.select().from(users).all();
 
 const app = express();
 
@@ -69,7 +64,7 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.send(joinTest);
+  res.json(joinTest);
 });
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
