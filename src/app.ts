@@ -53,9 +53,9 @@ db.insert(classes)
 
 */
 
-db.insert(users)
-  .values({ name: 'Justin Chu', email: 'blogger@blogger.com' })
-  .run();
+db.delete(users).run();
+
+db.insert(users).values({ name: 'David', email: 'blogger@blogger.com' }).run();
 
 const joinTest = db.select().from(users).all();
 
