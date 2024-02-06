@@ -17,8 +17,8 @@ import path from 'path';
 //console.log(argv['sqlite-path']);
 //const SQLITE_PATH = argv['sqlite-path'] ?? './novatest.db';
 console.log(process.env);
-const sqlite = new Database('/data/nova.db');
-//const sqlite = new Database('./novatest.db');
+//const sqlite = new Database('/data/nova.db');
+const sqlite = new Database('./novatest.db');
 const db = drizzle(sqlite);
 migrate(db, { migrationsFolder: './migrations' });
 
@@ -55,6 +55,9 @@ db.insert(classes)
 
 /* sanitize tables */
 db.delete(users).run();
+db.delete(workouts).run();
+db.delete(exercises).run();
+db.delete(userSessions).run();
 
 /* fill users */
 
@@ -124,25 +127,35 @@ db.insert(exercises)
 db.insert(workouts)
   .values([
     { id: 1, exerciseId: 1, reps: 12, set: 1, weight: 185 },
-    { id: 1, exerciseId: 1, reps: 10, set: 2, weight: 190 },
-    { id: 1, exerciseId: 1, reps: 8, set: 3, weight: 200 },
-    { id: 1, exerciseId: 2, reps: 12, set: 1, weight: 180 },
-    { id: 1, exerciseId: 2, reps: 10, set: 2, weight: 200 },
-    { id: 1, exerciseId: 2, reps: 8, set: 3, weight: 225 },
-    { id: 1, exerciseId: 9, reps: 15, set: 1, weight: 80 },
-    { id: 1, exerciseId: 9, reps: 12, set: 2, weight: 90 },
-    { id: 1, exerciseId: 9, reps: 6, set: 3, weight: 110 },
+    { id: 2, exerciseId: 1, reps: 10, set: 2, weight: 190 },
+    { id: 3, exerciseId: 1, reps: 8, set: 3, weight: 200 },
+    { id: 4, exerciseId: 2, reps: 12, set: 1, weight: 180 },
+    { id: 5, exerciseId: 2, reps: 10, set: 2, weight: 200 },
+    { id: 6, exerciseId: 2, reps: 8, set: 3, weight: 225 },
+    { id: 7, exerciseId: 9, reps: 15, set: 1, weight: 80 },
+    { id: 8, exerciseId: 9, reps: 12, set: 2, weight: 90 },
+    { id: 9, exerciseId: 9, reps: 6, set: 3, weight: 110 },
   ])
   .run();
 
 /* fill userSessions */
-db.insert(userSessions).values([
+db.insert(userSessions)
+  .values([
+    {
+      id: 1,
+      userId: 1,
+      location: 'Fit Squad Toronto',
+      status: 'Amazing',
+    },
+  ])
+  .run();
+
+/* workoutSession */
+db.insert(workoutSession).values([
   {
     id: 1,
-    userId: 1,
-    location: 'Fit Squad Toronto',
-    status: 'Amazing!',
-    createdAt: 1707248362,
+    userSessionId: 1,
+    workoutsId: 1,
   },
 ]);
 

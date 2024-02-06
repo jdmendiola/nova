@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
 export const users = sqliteTable('users', {
@@ -11,7 +12,7 @@ export const userSessions = sqliteTable('user_sessions', {
   userId: integer('user_id').references(() => users.id),
   location: text('location').notNull(),
   status: text('status').notNull(),
-  createdAt: integer('date', { mode: 'timestamp' }).notNull(),
+  date: text('date').default(sql`CURRENT_TIMESTAMP`),
 });
 
 export const exercises = sqliteTable('exercises', {

@@ -8,7 +8,7 @@ CREATE TABLE `user_sessions` (
 	`user_id` integer,
 	`location` text NOT NULL,
 	`status` text NOT NULL,
-	`date` integer NOT NULL,
+	`date` text DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
