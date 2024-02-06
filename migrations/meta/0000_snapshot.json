@@ -1,53 +1,9 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "9966089f-a28d-4c24-8293-df96dd883b72",
+  "id": "c63dc973-a780-46d5-ba2f-11c8a9c945ac",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "classes": {
-      "name": "classes",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "class": {
-          "name": "class",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "classes_user_id_users_id_fk": {
-          "name": "classes_user_id_users_id_fk",
-          "tableFrom": "classes",
-          "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
     "exercises": {
       "name": "exercises",
       "columns": {
@@ -242,6 +198,13 @@
         },
         "set": {
           "name": "set",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "weight": {
+          "name": "weight",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,

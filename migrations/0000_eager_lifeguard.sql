@@ -1,10 +1,3 @@
-CREATE TABLE `classes` (
-	`id` integer PRIMARY KEY NOT NULL,
-	`class` text,
-	`user_id` integer,
-	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON UPDATE no action ON DELETE no action
-);
---> statement-breakpoint
 CREATE TABLE `exercises` (
 	`id` integer PRIMARY KEY NOT NULL,
 	`name` text NOT NULL
@@ -38,5 +31,6 @@ CREATE TABLE `workouts` (
 	`exercise_id` integer,
 	`reps` integer NOT NULL,
 	`set` integer NOT NULL,
+	`weight` integer NOT NULL,
 	FOREIGN KEY (`exercise_id`) REFERENCES `exercises`(`id`) ON UPDATE no action ON DELETE no action
 );

@@ -6,12 +6,6 @@ export const users = sqliteTable('users', {
   email: text('email').notNull(),
 });
 
-export const classes = sqliteTable('classes', {
-  id: integer('id').primaryKey(),
-  className: text('class'),
-  userId: integer('user_id').references(() => users.id),
-});
-
 export const userSessions = sqliteTable('user_sessions', {
   id: integer('id').primaryKey(),
   userId: integer('user_id').references(() => users.id),
@@ -30,6 +24,7 @@ export const workouts = sqliteTable('workouts', {
   exerciseId: integer('exercise_id').references(() => exercises.id),
   reps: integer('reps').notNull(),
   set: integer('set').notNull(),
+  weight: integer('weight').notNull(),
 });
 
 export const workoutSession = sqliteTable('workout_session', {
