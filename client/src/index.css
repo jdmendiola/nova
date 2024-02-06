@@ -44,3 +44,102 @@ p {
   width: 1250px;
   margin: 0 auto;
 }
+
+#columns {
+  width: 100%;
+  display: flex;
+  margin-top: 60px;
+  flex-direction: row;
+  column-gap: 35px;
+  row-gap: 35px;
+}
+
+#launch-column {
+  min-width: 240px;
+}
+
+#tile-column {
+  min-width: 640px;
+  height: 400px;
+  background-color: rgb(255, 255, 255, 0.7);
+  border: 0 solid rgb(91 33 182 / 0.075);
+  border-radius: 0.75em;
+  box-shadow: 0 10px 15px -3px rgb(91 33 182 / 0.075),
+    0 4px 6px -4px rgb(91 33 182 / 0.075), 0 0 0 1px rgb(91 33 182 / 0.075);
+
+  color: rgb(35 23 74 / 1);
+  padding: 30px;
+}
+
+.launchButton {
+  align-items: center;
+  appearance: none;
+  border-radius: 4px;
+  border-style: none;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 3px 1px -2px, rgba(0, 0, 0, 0.14) 0 2px 2px 0,
+    rgba(0, 0, 0, 0.12) 0 1px 5px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: Roboto, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  height: 36px;
+  justify-content: center;
+  letter-spacing: 0.0892857em;
+  line-height: normal;
+  outline: none;
+  overflow: visible;
+  padding: 0 20px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  will-change: transform, opacity;
+}
+
+.launchButton:hover {
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px -1px, rgba(0, 0, 0, 0.14) 0 4px 5px 0,
+    rgba(0, 0, 0, 0.12) 0 1px 10px 0;
+}
+
+.launchButton:disabled {
+  background-color: rgba(0, 0, 0, 0.12);
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 0, rgba(0, 0, 0, 0.14) 0 0 0 0,
+    rgba(0, 0, 0, 0.12) 0 0 0 0;
+  color: rgba(0, 0, 0, 0.37);
+  cursor: default;
+  pointer-events: none;
+}
+
+.launchButton:not(:disabled) {
+  background-color: #da6a29;
+}
+
+.launchButton:focus {
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px -1px, rgba(0, 0, 0, 0.14) 0 4px 5px 0,
+    rgba(0, 0, 0, 0.12) 0 1px 10px 0;
+}
+
+.launchButton:active {
+  box-shadow: rgba(0, 0, 0, 0.2) 0 5px 5px -3px,
+    rgba(0, 0, 0, 0.14) 0 8px 10px 1px, rgba(0, 0, 0, 0.12) 0 3px 14px 2px;
+  background: #3cb5d1;
+}
+
+#greeting {
+  display: block;
+  margin-bottom: 5px;
+}
+
+h2#tileHeader {
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
