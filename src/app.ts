@@ -58,6 +58,7 @@ db.delete(users).run();
 db.delete(workouts).run();
 db.delete(exercises).run();
 db.delete(userSessions).run();
+db.delete(workoutSession).run();
 
 /* fill users */
 
@@ -151,13 +152,46 @@ db.insert(userSessions)
   .run();
 
 /* workoutSession */
-db.insert(workoutSession).values([
-  {
-    id: 1,
-    userSessionId: 1,
-    workoutsId: 1,
-  },
-]);
+db.insert(workoutSession)
+  .values([
+    {
+      userSessionId: 1,
+      workoutsId: 1,
+    },
+    {
+      userSessionId: 1,
+      workoutsId: 2,
+    },
+    {
+      userSessionId: 1,
+      workoutsId: 3,
+    },
+    {
+      userSessionId: 1,
+      workoutsId: 4,
+    },
+    {
+      userSessionId: 1,
+      workoutsId: 5,
+    },
+    {
+      userSessionId: 1,
+      workoutsId: 6,
+    },
+    {
+      userSessionId: 1,
+      workoutsId: 7,
+    },
+    {
+      userSessionId: 1,
+      workoutsId: 8,
+    },
+    {
+      userSessionId: 1,
+      workoutsId: 9,
+    },
+  ])
+  .run();
 
 const joinTest = db.select().from(users).all();
 
