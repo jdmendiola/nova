@@ -59,8 +59,15 @@ p {
 }
 
 #tile-column {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  column-gap: 30px;
+  padding-bottom: 30px;
+}
+
+#tile-column-box {
   min-width: 640px;
-  height: 400px;
   background-color: rgb(255, 255, 255, 0.7);
   border: 0 solid rgb(91 33 182 / 0.075);
   border-radius: 0.75em;
@@ -140,6 +147,70 @@ p {
 
 h2#tileHeader {
   font-weight: 300;
-  margin: 0;
+  margin: 0 0 20px 0;
   padding: 0;
+}
+
+#tile-table {
+  width: 100%;
+}
+
+#tile-header-title {
+  display: flex;
+  width: 100%;
+  column-gap: 40px;
+  margin-bottom: 20px;
+}
+
+#tile-header-title span,
+span.title-row {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+#tile-header-title span:first-child {
+  font-weight: bold;
+  color: #3596aa;
+}
+
+#tile-table-title,
+#tile-table-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+#tile-table-row {
+  padding: 15px 0;
+  border-top: 1px solid #ebebeb;
+}
+
+#tile-header-title span:nth-child(2),
+span.title-row,
+span.row {
+  color: #000;
+}
+
+span.title-row:nth-child(1),
+span.row:nth-child(1) {
+  min-width: 130px;
+}
+
+span.title-row:not(:first-child),
+span.row:not(:first-child) {
+  min-width: 80px;
+}
+
+span.title-row:nth-child(2),
+span.title-row:nth-child(3),
+span.title-row:nth-child(4),
+span.row:nth-child(2),
+span.row:nth-child(3),
+span.row:nth-child(4) {
+  text-align: center;
+}
+
+.row {
+  font-size: 14px;
 }

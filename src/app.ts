@@ -17,19 +17,19 @@ import path from 'path';
 //console.log(argv['sqlite-path']);
 //const SQLITE_PATH = argv['sqlite-path'] ?? './novatest.db';
 console.log(process.env);
-//const sqlite = new Database('/data/nova.db');
+//const sqlite = new Database('/data/nova1.db');
 const sqlite = new Database('./novatest.db');
 const db = drizzle(sqlite);
 migrate(db, { migrationsFolder: './migrations' });
 
-// // /* sanitize tables */
+// /* sanitize tables */
 // db.delete(users).run();
 // db.delete(workouts).run();
 // db.delete(exercises).run();
 // db.delete(userSessions).run();
 // db.delete(workoutSession).run();
 
-// // /* fill users */
+// /* fill users */
 
 // db.insert(users)
 //   .values({
@@ -192,6 +192,7 @@ const joinTest = db
     set: workouts.set,
     weight: workouts.weight,
     name: users.name,
+    data: userSessions.date,
     userSessionId: userSessions.id,
   })
   .from(workoutSession)
@@ -230,7 +231,7 @@ app.use(bodyParser.json());
 
 app.get('/api', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  res.json(joinTest);
+  res.json(groupedArrays);
 });
 
 app.get('*', (req, res) => {
