@@ -55,7 +55,7 @@ p {
 }
 
 #launch-column {
-  min-width: 240px;
+  width: 240px;
 }
 
 #tile-column {
@@ -66,16 +66,23 @@ p {
   padding-bottom: 30px;
 }
 
-#tile-column-box {
+#tile-column-box,
+#form-column {
   min-width: 640px;
   background-color: rgb(255, 255, 255, 0.7);
   border: 0 solid rgb(91 33 182 / 0.075);
   border-radius: 0.75em;
   box-shadow: 0 10px 15px -3px rgb(91 33 182 / 0.075),
     0 4px 6px -4px rgb(91 33 182 / 0.075), 0 0 0 1px rgb(91 33 182 / 0.075);
-
   color: rgb(35 23 74 / 1);
-  padding: 30px;
+  padding-bottom: 30px;
+}
+
+#tile-column-box p {
+  padding: 0 30px;
+  margin: 0 0 15px 0;
+  font-weight: semi-bold;
+  font-size: 14px;
 }
 
 .launchButton {
@@ -148,7 +155,13 @@ p {
 h2#tileHeader {
   font-weight: 300;
   margin: 0 0 20px 0;
-  padding: 0;
+  padding: 30px 0 0 30px;
+}
+
+h2#tileHeading {
+  font-weight: 300;
+  margin: 0 0 8px 0;
+  padding: 30px 0 0 30px;
 }
 
 #tile-table {
@@ -160,6 +173,7 @@ h2#tileHeader {
   width: 100%;
   column-gap: 55px;
   margin-bottom: 20px;
+  padding: 0 30px;
 }
 
 #tile-header-title span,
@@ -176,18 +190,23 @@ span.title-row {
 
 #tile-table-title {
   margin-bottom: 15px;
+  padding-left: 30px;
 }
 
 #tile-table-title,
-#tile-table-row {
+.tile-table-row {
   display: flex;
   gap: 20px;
   align-items: center;
 }
 
-#tile-table-row {
-  padding: 15px 0;
+.tile-table-row {
+  padding: 15px 0 15px 30px;
   border-top: 1px solid #ebebeb;
+}
+
+.tile-table-row:nth-child(even) {
+  background-color: #f1f7f9;
 }
 
 #tile-header-title span:nth-child(2),
@@ -206,13 +225,13 @@ span.row:not(:first-child) {
   min-width: 80px;
 }
 
-span.title-row:nth-child(2),
-span.title-row:nth-child(3),
-span.title-row:nth-child(4),
-span.row:nth-child(2),
-span.row:nth-child(3),
-span.row:nth-child(4) {
+span.title-row:not(:first-child),
+span.row:not(:first-child) {
   text-align: center;
+}
+
+.spacer {
+  padding-top: 30px;
 }
 
 .row {

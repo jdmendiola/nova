@@ -6,20 +6,24 @@ export default function Columns() {
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
-  data && console.log(data);
 
   return (
     <>
       <section className="container">
         <div id="columns">
           <div id="launch-column">
+            <span id="greeting">Welcome David,</span>
             <LaunchButton />
           </div>
           <div id="tile-column">
             {data &&
               Object.keys(data).map((sessionId, index) => (
                 <div id="tile-column-box" key={sessionId}>
-                  {index == 0 ? <h2 id="tileHeader">Latest Workouts</h2> : null}
+                  {index == 0 ? (
+                    <h2 id="tileHeader">Latest Workouts</h2>
+                  ) : (
+                    <div className="spacer"></div>
+                  )}
                   <div id="tile-header-title">
                     <div>
                       <span>Gym</span>
@@ -38,7 +42,7 @@ export default function Columns() {
                       <span className="title-row">Weight</span>
                     </div>
                     {data[sessionId].map((session) => (
-                      <div id="tile-table-row">
+                      <div className="tile-table-row">
                         <span className="row">{session.exercise}</span>
                         <span className="row">{session.reps}</span>
                         <span className="row">{session.set}</span>

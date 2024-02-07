@@ -1,10 +1,13 @@
+import { Link } from 'react-router-dom';
+
 export default function LaunchButton() {
   return (
     <>
-      <span id="greeting">Welcome David,</span>
-      <button className="launchButton" role="button">
-        Launch workout
-      </button>
+      <Link to="/new">
+        <button className="launchButton" role="button">
+          Launch workout
+        </button>
+      </Link>
     </>
   );
 }

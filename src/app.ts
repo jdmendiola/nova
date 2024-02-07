@@ -16,7 +16,7 @@ import path from 'path';
 //console.log('ARG V PROCESS', argv);
 //console.log(argv['sqlite-path']);
 //const SQLITE_PATH = argv['sqlite-path'] ?? './novatest.db';
-console.log(process.env);
+//console.log(process.env);
 //const sqlite = new Database('/data/nova1.db');
 const sqlite = new Database('./novatest.db');
 const db = drizzle(sqlite);
@@ -219,7 +219,7 @@ const groupedBySessionId = unTypedArray.reduce((acc, workout) => {
 // Convert the object into an array of arrays
 const groupedArrays = Object.values(groupedBySessionId);
 
-console.log(groupedArrays);
+//console.log(groupedArrays);
 
 const app = express();
 
@@ -232,6 +232,31 @@ app.use(bodyParser.json());
 app.get('/api', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.json(groupedArrays);
+});
+
+app.get('/api/exercises', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  const allExercises = db.select().from(exercises).all();
+  res.json(allExercises);
+});
+
+app.post('/api/submitExercise', (req, res) => {
+  // Extract exercise, weight, reps, and sets from the request body
+  const { exercise, weight, reps, sets } = req.body;
+
+  // Here, you can add validation or processing logic for the received data
+  console.log('Received exercise submission:', {
+    exercise,
+    weight,
+    reps,
+    sets,
+  });
+
+  // For demonstration, we're assuming all data is valid and responding with success
+  res.status(200).json({ message: 'Exercise submitted successfully' });
+
+  // In a real application, you might save this data to a database,
+  // and handle any errors or validation issues accordingly
 });
 
 app.get('*', (req, res) => {
