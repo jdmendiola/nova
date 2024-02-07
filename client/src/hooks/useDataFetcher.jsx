@@ -13,7 +13,7 @@ const useDataFetcher = (url) => {
         const response = await fetch(url);
         const jsonData = await response.json();
         setData(jsonData);
-        setError(null); // Reset the error if the fetch is successful
+        setError(null);
       } catch (error) {
         setError('Error fetching data');
       } finally {
@@ -22,7 +22,7 @@ const useDataFetcher = (url) => {
     };
 
     fetchData();
-  }, [url]); // Dependency array with URL ensures this effect runs when URL changes
+  }, [url]);
 
   return { data, isLoading, error };
 };

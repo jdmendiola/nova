@@ -20,8 +20,8 @@ CREATE TABLE `users` (
 --> statement-breakpoint
 CREATE TABLE `workout_session` (
 	`id` integer PRIMARY KEY NOT NULL,
-	`user_session_id` integer,
-	`workouts_id` integer,
+	`user_session_id` integer NOT NULL,
+	`workouts_id` integer NOT NULL,
 	FOREIGN KEY (`user_session_id`) REFERENCES `user_sessions`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`workouts_id`) REFERENCES `workouts`(`id`) ON UPDATE no action ON DELETE no action
 );

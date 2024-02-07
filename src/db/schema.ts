@@ -30,6 +30,10 @@ export const workouts = sqliteTable('workouts', {
 
 export const workoutSession = sqliteTable('workout_session', {
   id: integer('id').primaryKey(),
-  userSessionId: integer('user_session_id').references(() => userSessions.id),
-  workoutsId: integer('workouts_id').references(() => workouts.id),
+  userSessionId: integer('user_session_id')
+    .references(() => userSessions.id)
+    .notNull(),
+  workoutsId: integer('workouts_id')
+    .references(() => workouts.id)
+    .notNull(),
 });

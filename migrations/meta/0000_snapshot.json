@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "00ac9405-4405-4967-bbda-a7971b682b5a",
+  "id": "b36485dd-5599-4634-94c5-18e7d23b0c3a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "exercises": {
@@ -130,14 +130,14 @@
           "name": "user_session_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "workouts_id": {
           "name": "workouts_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         }
       },
