@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { drizzle } from 'drizzle-orm/better-sqlite3';
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
+import { SQLiteSyncDialect } from 'drizzle-orm/sqlite-core';
 import Database from 'better-sqlite3';
 import { users } from './db/schema';
 import { userSessions } from './db/schema';
@@ -262,43 +263,32 @@ app.post('/api/submitExercise', (req, res) => {
 
   db.insert(workoutSession)
     .values({
-      userSessionId: 1,
+      userSessionId: 2,
       workoutsId: insertedWorkout[0].workoutId,
     })
     .run();
 
-  // For demonstration, we're assuming all data is valid and responding with success
   res.status(200).json({ message: 'Exercise submitted successfully' });
-
-  // In a real application, you might save this data to a database,
-  // and handle any errors or validation issues accordingly
+  // TODO: ERRORS
 });
 
 app.delete('/delete/workout_session/:id', (req, res) => {
-  const { id } = req.params; // Get the id from the URL
-  const deletedQ = db.run(
-    sql`DELETE FROM workout_session WHERE workout_session.id = ${id}`,
-  );
+  const { id } = req.params;
+  let workoutSessionId = db
+    .select({ workoutSessionId: workoutSession.id })
+    .from(workoutSession)
+    .where(sql`${workoutSession.workoutsId} = ${id}`)
+    .all();
 
-  console.log(deletedQ);
+  db.delete(workoutSession)
+    .where(sql`${workoutSession.id} = ${workoutSessionId[0].workoutSessionId}`)
+    .run();
 
-  if (deletedQ.changes > 0) {
-    res.send(`Row(s) deleted ${deletedQ.changes}`);
-  } else {
-    res.status(404).send('Not Found');
-  }
-});
+  db.delete(workouts)
+    .where(sql`${workouts.id} = ${id}`)
+    .run();
 
-app.delete('/delete/workout/:id', (req, res) => {
-  const { id } = req.params; // Get the id from the URL
-  const deletedQ = db.run(sql`DELETE FROM workouts WHERE workouts.id = ${id}`);
-  console.log(deletedQ);
-
-  if (deletedQ.changes > 0) {
-    res.send(`Row(s) deleted ${deletedQ.changes}`);
-  } else {
-    res.status(404).send('Not Found');
-  }
+  res.end();
 });
 
 // Serve React
