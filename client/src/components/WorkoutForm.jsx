@@ -76,55 +76,61 @@ const ExerciseForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form id="workout-form" onSubmit={handleSubmit}>
+      <div className="form-element">
         <label htmlFor="exerciseSelect">Select an exercise:</label>
-        <select
-          id="exerciseSelect"
-          value={selectedExercise}
-          onChange={handleExerciseChange}
-        >
-          <option value="">Select an exercise</option>
-          {exercises.map((exercise) => (
-            <option key={exercise.id} value={exercise.id}>
-              {exercise.name}
-            </option>
-          ))}
-        </select>
+        <div className="selectWrap">
+          <select
+            id="exerciseSelect"
+            value={selectedExercise}
+            onChange={handleExerciseChange}
+          >
+            <option value="">Exercise</option>
+            {exercises.map((exercise) => (
+              <option key={exercise.id} value={exercise.id}>
+                {exercise.name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
-      <div>
-        <label htmlFor="weightInput">Enter your weight (lbs):</label>
+      <div className="form-element">
+        <label htmlFor="weightInput">Set weight (lbs):</label>
         <input
-          type="text"
+          type="tel"
           id="weightInput"
           value={weight}
           onChange={handleWeightChange}
           maxLength="3"
-          placeholder="Weight in lbs"
         />
       </div>
-      <div>
+      <div className="form-element">
         <label htmlFor="repsInput">Enter your reps:</label>
         <input
-          type="text"
+          type="tel"
           id="repsInput"
           value={reps}
           onChange={handleRepsChange}
           maxLength="2"
-          placeholder="Reps"
         />
       </div>
-      <div>
-        <label htmlFor="setsSelect">Select your sets:</label>
-        <select id="setsSelect" value={sets} onChange={handleSetsChange}>
-          {Array.from({ length: 10 }, (_, i) => (
-            <option key={i + 1} value={i + 1}>
-              {i + 1}
-            </option>
-          ))}
-        </select>
+      <div className="form-element">
+        <label htmlFor="setsSelect">Which set are you?:</label>
+        <div className="selectWrap">
+          <select id="setsSelect" value={sets} onChange={handleSetsChange}>
+            {Array.from({ length: 10 }, (_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {i + 1}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
-      <button type="submit">Submit</button>
+      <div className="form-element">
+        <button className="launchButton" type="submit">
+          Submit
+        </button>
+      </div>
     </form>
   );
 };

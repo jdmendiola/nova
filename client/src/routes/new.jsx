@@ -22,7 +22,7 @@ export default function New() {
         <div id="columns">
           <div id="launch-column">
             <span id="greeting">
-              <p>Welcome David,</p>
+              <p className="greeting-name">Welcome David,</p>
               <p>Enter your workout progress</p>
               <p>
                 First select a workout session, then enter workout weight, set,

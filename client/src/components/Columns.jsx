@@ -12,7 +12,9 @@ export default function Columns() {
       <section className="container">
         <div id="columns">
           <div id="launch-column">
-            <span id="greeting">Welcome David,</span>
+            <span id="greeting">
+              <p className="greeting-name">Welcome David,</p>
+            </span>
             <LaunchButton />
           </div>
           <div id="tile-column">
