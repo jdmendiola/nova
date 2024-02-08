@@ -90,7 +90,8 @@ p {
   font-size: 14px;
 }
 
-.launchButton {
+.launchButton,
+.formButton {
   align-items: center;
   appearance: none;
   border-radius: 4px;
@@ -111,7 +112,6 @@ p {
   outline: none;
   overflow: visible;
   padding: 0 20px;
-  width: 100%;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -123,12 +123,23 @@ p {
   will-change: transform, opacity;
 }
 
-.launchButton:hover {
+.launchButton {
+  width: 100%;
+}
+
+.formButton {
+  width: auto;
+  display: inline-block;
+}
+
+.launchButton:hover,
+.formButton:hover {
   box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px -1px, rgba(0, 0, 0, 0.14) 0 4px 5px 0,
     rgba(0, 0, 0, 0.12) 0 1px 10px 0;
 }
 
-.launchButton:disabled {
+.launchButton:disabled,
+.formButton:disabled {
   background-color: rgba(0, 0, 0, 0.12);
   box-shadow: rgba(0, 0, 0, 0.2) 0 0 0 0, rgba(0, 0, 0, 0.14) 0 0 0 0,
     rgba(0, 0, 0, 0.12) 0 0 0 0;
@@ -137,16 +148,19 @@ p {
   pointer-events: none;
 }
 
-.launchButton:not(:disabled) {
+.launchButton:not(:disabled),
+.formButton:not(:disabled) {
   background-color: #da6a29;
 }
 
-.launchButton:focus {
+.launchButton:focus,
+.formButton:focus {
   box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px -1px, rgba(0, 0, 0, 0.14) 0 4px 5px 0,
     rgba(0, 0, 0, 0.12) 0 1px 10px 0;
 }
 
-.launchButton:active {
+.launchButton:active,
+.formButton:active {
   box-shadow: rgba(0, 0, 0, 0.2) 0 5px 5px -3px,
     rgba(0, 0, 0, 0.14) 0 8px 10px 1px, rgba(0, 0, 0, 0.12) 0 3px 14px 2px;
   background: #3cb5d1;
@@ -315,4 +329,24 @@ input {
 .form-element {
   padding-left: 30px;
   margin-bottom: 15px;
+}
+
+@media (max-width: 999px) {
+  .container,
+  #launch-column,
+  #tile-column-box {
+    width: 100%;
+    min-width: initial;
+  }
+  #logo {
+    left: -22px;
+  }
+  .header-container {
+    padding: 0 30px;
+  }
+  #columns {
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px 60px 30px;
+  }
 }

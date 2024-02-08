@@ -85,7 +85,7 @@ const ExerciseForm = () => {
             value={selectedExercise}
             onChange={handleExerciseChange}
           >
-            <option value="">Exercise</option>
+            <option value="">Exercises</option>
             {exercises.map((exercise) => (
               <option key={exercise.id} value={exercise.id}>
                 {exercise.name}
@@ -127,8 +127,8 @@ const ExerciseForm = () => {
         </div>
       </div>
       <div className="form-element">
-        <button className="launchButton" type="submit">
-          Submit
+        <button className="formButton" type="submit">
+          Record Progress
         </button>
       </div>
     </form>
