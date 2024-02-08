@@ -20,7 +20,11 @@ export default function Columns() {
           <div id="tile-column">
             {data &&
               Object.keys(data).map((sessionId, index) => (
-                <div id="tile-column-box" key={sessionId}>
+                <div
+                  id="tile-column-box"
+                  className="tile-column-scroll"
+                  key={sessionId}
+                >
                   {index == 0 ? (
                     <h2 id="tileHeader">Latest Workouts</h2>
                   ) : (

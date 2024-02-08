@@ -349,4 +349,16 @@ input {
     flex-direction: column;
     padding: 0 30px 60px 30px;
   }
+  h2#tileHeading {
+    padding: 30px 30px 0 30px;
+    text-wrap: pretty;
+  }
+
+  .tile-column-scroll {
+    overflow: auto;
+  }
+  #tile-table {
+    min-width: 100%;
+    width: fit-content;
+  }
 }
