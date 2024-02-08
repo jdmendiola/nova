@@ -17,6 +17,9 @@ const router = createBrowserRouter([
     element: <New />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: '/delete/:id',
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

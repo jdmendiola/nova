@@ -41,8 +41,12 @@ export default function Columns() {
                       <span className="title-row">Set</span>
                       <span className="title-row">Weight</span>
                     </div>
-                    {data[sessionId].map((session) => (
-                      <div className="tile-table-row">
+                    {data[sessionId].map((session, index) => (
+                      <div
+                        className="tile-table-row"
+                        key={session.workoutsId}
+                        data-workout-id={session.workoutsId}
+                      >
                         <span className="row">{session.exercise}</span>
                         <span className="row">{session.reps}</span>
                         <span className="row">{session.set}</span>

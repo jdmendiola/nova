@@ -182,45 +182,6 @@ migrate(db, { migrationsFolder: './migrations' });
 //     },
 //   ])
 //   .run();
-
-const joinTest = db
-  .select({
-    workOutSessionId: workoutSession.id,
-    exercise: exercises.name,
-    location: userSessions.location,
-    reps: workouts.reps,
-    set: workouts.set,
-    weight: workouts.weight,
-    name: users.name,
-    data: userSessions.date,
-    userSessionId: userSessions.id,
-  })
-  .from(workoutSession)
-  .leftJoin(workouts, eq(workoutSession.workoutsId, workouts.id))
-  .leftJoin(exercises, eq(workouts.exerciseId, exercises.id))
-  .leftJoin(userSessions, eq(workoutSession.userSessionId, userSessions.id))
-  .leftJoin(users, eq(userSessions.userId, users.id))
-  .orderBy(desc(userSessions.id))
-  .all();
-
-let unTypedArray: any[] = [...joinTest];
-
-// Group by sessionId
-const groupedBySessionId = unTypedArray.reduce((acc, workout) => {
-  // Initialize the array for the sessionId if it doesn't exist
-  if (!acc[workout.userSessionId]) {
-    acc[workout.userSessionId] = [];
-  }
-  // Push the current workout into the array for its sessionId
-  acc[workout.userSessionId].push(workout);
-  return acc;
-}, {});
-
-// Convert the object into an array of arrays
-const groupedArrays = Object.values(groupedBySessionId);
-
-//console.log(groupedArrays);
-
 const app = express();
 
 app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
@@ -231,6 +192,41 @@ app.use(bodyParser.json());
 
 app.get('/api', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
+
+  const allWorkouts = db
+    .select({
+      workOutSessionId: workoutSession.id,
+      exercise: exercises.name,
+      location: userSessions.location,
+      reps: workouts.reps,
+      set: workouts.set,
+      weight: workouts.weight,
+      name: users.name,
+      data: userSessions.date,
+      userSessionId: userSessions.id,
+      workoutsId: workouts.id,
+    })
+    .from(workoutSession)
+    .leftJoin(workouts, eq(workoutSession.workoutsId, workouts.id))
+    .leftJoin(exercises, eq(workouts.exerciseId, exercises.id))
+    .leftJoin(userSessions, eq(workoutSession.userSessionId, userSessions.id))
+    .leftJoin(users, eq(userSessions.userId, users.id))
+    .orderBy(desc(userSessions.id))
+    .all();
+
+  let unTypedArray: any[] = [...allWorkouts];
+
+  const groupedBySessionId = unTypedArray.reduce((acc, workout) => {
+    if (!acc[workout.userSessionId]) {
+      acc[workout.userSessionId] = [];
+    }
+
+    acc[workout.userSessionId].push(workout);
+    return acc;
+  }, {});
+
+  const groupedArrays = Object.values(groupedBySessionId);
+
   res.json(groupedArrays);
 });
 
@@ -252,6 +248,25 @@ app.post('/api/submitExercise', (req, res) => {
     sets,
   });
 
+  // db.insert(workouts)
+  //   .values({ exerciseId: exercise, reps: reps, set: sets, weight: weight })
+  //   .run();
+
+  const insertedWorkout = db
+    .insert(workouts)
+    .values({ exerciseId: exercise, reps: reps, set: sets, weight: weight })
+    .returning({ workoutId: workouts.id })
+    .all();
+
+  console.log(insertedWorkout);
+
+  db.insert(workoutSession)
+    .values({
+      userSessionId: 1,
+      workoutsId: insertedWorkout[0].workoutId,
+    })
+    .run();
+
   // For demonstration, we're assuming all data is valid and responding with success
   res.status(200).json({ message: 'Exercise submitted successfully' });
 
@@ -259,6 +274,34 @@ app.post('/api/submitExercise', (req, res) => {
   // and handle any errors or validation issues accordingly
 });
 
+app.delete('/delete/workout_session/:id', (req, res) => {
+  const { id } = req.params; // Get the id from the URL
+  const deletedQ = db.run(
+    sql`DELETE FROM workout_session WHERE workout_session.id = ${id}`,
+  );
+
+  console.log(deletedQ);
+
+  if (deletedQ.changes > 0) {
+    res.send(`Row(s) deleted ${deletedQ.changes}`);
+  } else {
+    res.status(404).send('Not Found');
+  }
+});
+
+app.delete('/delete/workout/:id', (req, res) => {
+  const { id } = req.params; // Get the id from the URL
+  const deletedQ = db.run(sql`DELETE FROM workouts WHERE workouts.id = ${id}`);
+  console.log(deletedQ);
+
+  if (deletedQ.changes > 0) {
+    res.send(`Row(s) deleted ${deletedQ.changes}`);
+  } else {
+    res.status(404).send('Not Found');
+  }
+});
+
+// Serve React
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
 });

@@ -86,7 +86,7 @@ const ExerciseForm = () => {
         >
           <option value="">Select an exercise</option>
           {exercises.map((exercise) => (
-            <option key={exercise.id} value={exercise.name}>
+            <option key={exercise.id} value={exercise.id}>
               {exercise.name}
             </option>
           ))}
