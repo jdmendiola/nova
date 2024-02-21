@@ -33,12 +33,12 @@ const ExerciseForm = () => {
     fetchExercises();
   }, []);
 
-  function processWorkout(id, status) {
+  function processWorkout(id, status, name) {
     const nextWorkouts = workouts.filter((item) => item.id !== id);
     if (status === 'processed') {
-      nextWorkouts.unshift({ id, status });
+      nextWorkouts.unshift({ id, status, name });
     } else {
-      nextWorkouts.push({ id, status });
+      nextWorkouts.push({ id, status, name });
     }
     setWorkouts(nextWorkouts);
   }
@@ -118,9 +118,12 @@ const ExerciseForm = () => {
                           layoutId={item.id}
                           key={item.id}
                           className="workout-button-area"
-                          onClick={() => processWorkout(item.id, 'processed')}
-                        />
-                        {item.name}
+                          onClick={() =>
+                            processWorkout(item.id, 'processed', item.name)
+                          }
+                        >
+                          {item.name}
+                        </motion.div>
                       </div>
                     </>
                   );
@@ -137,9 +140,12 @@ const ExerciseForm = () => {
                         layoutId={item.id}
                         key={item.id}
                         className="workout-button-area"
-                        onClick={() => processWorkout(item.id, 'unprocessed')}
-                      />
-                      {item.name}
+                        onClick={() =>
+                          processWorkout(item.id, 'unprocessed', item.name)
+                        }
+                      >
+                        {item.name}
+                      </motion.div>
                     </div>
                   );
                 })}
