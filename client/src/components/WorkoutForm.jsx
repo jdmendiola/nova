@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { LayoutGroup, motion } from 'framer-motion';
 
 const ExerciseForm = () => {
   const navigate = useNavigate();
   const [exercises, setExercises] = useState([]);
+  const [workouts, setWorkouts] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState('');
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
@@ -15,6 +17,14 @@ const ExerciseForm = () => {
         const response = await fetch('/api/exercises');
         const data = await response.json();
         setExercises(data);
+        const workoutList = data.map(function (item) {
+          return {
+            id: item.id,
+            status: 'unprocessed',
+            name: item.name,
+          };
+        });
+        setWorkouts(workoutList);
       } catch (error) {
         console.error('Failed to fetch exercises:', error);
       }
@@ -22,6 +32,24 @@ const ExerciseForm = () => {
 
     fetchExercises();
   }, []);
+
+  function processWorkout(id, status) {
+    const nextWorkouts = workouts.filter((item) => item.id !== id);
+    if (status === 'processed') {
+      nextWorkouts.unshift({ id, status });
+    } else {
+      nextWorkouts.push({ id, status });
+    }
+    setWorkouts(nextWorkouts);
+  }
+
+  const unprocessedWorkouts = workouts.filter(
+    (item) => item.status === 'unprocessed',
+  );
+
+  const processedWorkouts = workouts.filter(
+    (item) => item.status === 'processed',
+  );
 
   const handleExerciseChange = (event) => {
     setSelectedExercise(event.target.value);
@@ -76,62 +104,107 @@ const ExerciseForm = () => {
   };
 
   return (
-    <form id="workout-form" onSubmit={handleSubmit}>
-      <div className="form-element">
-        <label htmlFor="exerciseSelect">Select an exercise:</label>
-        <div className="selectWrap">
-          <select
-            id="exerciseSelect"
-            value={selectedExercise}
-            onChange={handleExerciseChange}
-          >
-            <option value="">Exercises</option>
-            {exercises.map((exercise) => (
-              <option key={exercise.id} value={exercise.id}>
-                {exercise.name}
-              </option>
-            ))}
-          </select>
+    <>
+      <LayoutGroup>
+        <div className="exercise-select-wrap">
+          <div className="exercise-list">
+            <div className="workout-wrap">
+              {unprocessedWorkouts &&
+                unprocessedWorkouts.map((item) => {
+                  return (
+                    <>
+                      <div className="workout-button">
+                        <motion.div
+                          layoutId={item.id}
+                          key={item.id}
+                          className="workout-button-area"
+                          onClick={() => processWorkout(item.id, 'processed')}
+                        />
+                        {item.name}
+                      </div>
+                    </>
+                  );
+                })}
+            </div>
+          </div>
+          <div className="exercise-list">
+            <div className="workout-wrap">
+              {processedWorkouts &&
+                processedWorkouts.map((item) => {
+                  return (
+                    <div className="workout-button">
+                      <motion.div
+                        layoutId={item.id}
+                        key={item.id}
+                        className="workout-button-area"
+                        onClick={() => processWorkout(item.id, 'unprocessed')}
+                      />
+                      {item.name}
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="form-element">
-        <label htmlFor="weightInput">Set weight (lbs):</label>
-        <input
-          type="tel"
-          id="weightInput"
-          value={weight}
-          onChange={handleWeightChange}
-          maxLength="3"
-        />
-      </div>
-      <div className="form-element">
-        <label htmlFor="repsInput">Enter your reps:</label>
-        <input
-          type="tel"
-          id="repsInput"
-          value={reps}
-          onChange={handleRepsChange}
-          maxLength="2"
-        />
-      </div>
-      <div className="form-element">
-        <label htmlFor="setsSelect">Which set are you?:</label>
-        <div className="selectWrap">
-          <select id="setsSelect" value={sets} onChange={handleSetsChange}>
-            {Array.from({ length: 10 }, (_, i) => (
-              <option key={i + 1} value={i + 1}>
-                {i + 1}
-              </option>
-            ))}
-          </select>
+      </LayoutGroup>
+
+      <form id="workout-form" onSubmit={handleSubmit}>
+        <div className="form-element">
+          <label htmlFor="exerciseSelect">Select an exercise:</label>
+          <div className="selectWrap">
+            <select
+              id="exerciseSelect"
+              value={selectedExercise}
+              onChange={handleExerciseChange}
+            >
+              <option value="">Exercises</option>
+              {exercises.map((exercise) => (
+                <option key={exercise.id} value={exercise.id}>
+                  {exercise.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-      </div>
-      <div className="form-element">
-        <button className="formButton" type="submit">
-          Record Progress
-        </button>
-      </div>
-    </form>
+        <div className="form-element">
+          <label htmlFor="weightInput">Set weight (lbs):</label>
+          <input
+            type="tel"
+            id="weightInput"
+            value={weight}
+            onChange={handleWeightChange}
+            maxLength="3"
+          />
+        </div>
+        <div className="form-element">
+          <label htmlFor="repsInput">Enter your reps:</label>
+          <input
+            type="tel"
+            id="repsInput"
+            value={reps}
+            onChange={handleRepsChange}
+            maxLength="2"
+          />
+        </div>
+        <div className="form-element">
+          <label htmlFor="setsSelect">Which set are you?:</label>
+          <div className="selectWrap">
+            <select id="setsSelect" value={sets} onChange={handleSetsChange}>
+              {Array.from({ length: 10 }, (_, i) => (
+                <option key={i + 1} value={i + 1}>
+                  {i + 1}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="form-element">
+          <button className="formButton" type="submit">
+            Record Progress
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 

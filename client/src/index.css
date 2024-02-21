@@ -73,7 +73,7 @@ p {
 
 #tile-column-box,
 #form-column {
-  min-width: 640px;
+  width: 640px;
   background-color: rgb(255, 255, 255, 0.7);
   border: 0 solid rgb(91 33 182 / 0.075);
   border-radius: 0.75em;
@@ -329,6 +329,52 @@ input {
 .form-element {
   padding-left: 30px;
   margin-bottom: 15px;
+}
+
+.exercise-select-wrap {
+  padding: 30px;
+}
+
+.exercise-list {
+  padding: 30px;
+  border: 1px solid gray;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.exercise-list .workout-wrap {
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+}
+.exercise-list .workout-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 105px;
+  border: 1px solid red;
+  border-radius: 5px;
+  padding: 3px;
+  text-align: center;
+  vertical-align: center;
+  font-size: 9px;
+  position: relative;
+}
+.exercise-list .workout-button .workout-button-area {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background-color: blue;
 }
 
 @media (max-width: 999px) {
