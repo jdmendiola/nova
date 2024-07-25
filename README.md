@@ -21,26 +21,32 @@ Database Model
 - See my model in the root Assets folder diagram-export....
 - /src/db/schema.ts is the model for the database object based of course
 
-** Tables **
+**Tables**
 
-exercises - holds a list of hard coded exercises (bench press, dead lift etc...)
+**exercises** - holds a list of hard coded exercises (bench press, dead lift etc...)
 
-user_sessions - currently hard coded but this should come from the client
+**user_sessions** - currently hard coded but this should come from the client
 
 ```javascript
   {
       id: 1,
-      userId: 1, (hard coded to the user David Mendiola)
-      location: 'Fit Squad Toronto', (the gym or facility)
-      status: 'Amazing', (how the workout went or session went)
+      userId: 1, //hard coded to the user David Mendiola
+      location: 'Fit Squad Toronto', //the gym or facility
+      status: 'Amazing', //how the workout went or session went
   },
   {
     id: 2,
-    userId: 1, (hard coded to some other use at the moment)
+    userId: 1, //hard coded to some other use at the moment
     location: 'Fit Squad Toronto',
     status: 'Meh',
   },
 ```
+
+**users** - self explanatory can see the /src/db/schema.ts for properties
+
+**workout_session** - this is a look up table combining user_session and workouts essentially this is the data that the tiles are displaying on the home page again see `/src/db/schema.ts` to review all properties
+
+**workouts** - every time a user fills out the form they fill a workout so the current work they are doing let's say bench press so it will ask what set your are, the weight, how many reps again see `/src/db/schema.ts` to review all properties
 
 Development Stack
 
