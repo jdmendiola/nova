@@ -1,6 +1,5 @@
 node_modules
 .vscode
-Assets
 .DS_Store
 build
 *.db
