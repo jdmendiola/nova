@@ -27,19 +27,19 @@ exercises - holds a list of hard coded exercises (bench press, dead lift etc...)
 
 user_sessions - currently hard coded but this should come from the client
 
--- Example
-`  {
-    id: 1, 
-    userId: 1, (hard coded to the user David Mendiola)
-    location: 'Fit Squad Toronto', (the gym or facility)
-    status: 'Amazing', (how the workout went or session went)
-  },
-  {
-    id: 2, 
-    userId: 1, (hard coded to some other use at the moment)
-    location: 'Fit Squad Toronto',
-    status: 'Meh',
-  },`
+`
+        {
+            id: 1, 
+            userId: 1, (hard coded to the user David Mendiola)
+            location: 'Fit Squad Toronto', (the gym or facility)
+            status: 'Amazing', (how the workout went or session went)
+        },
+        {
+          id: 2, 
+          userId: 1, (hard coded to some other use at the moment)
+          location: 'Fit Squad Toronto',
+          status: 'Meh',
+        },`
 
 Development Stack
 
