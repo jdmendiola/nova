@@ -67,7 +67,7 @@ React Code
 
 ### Possible Features
 
-- Currently I'm hard coding session which essentially is the "card" or "tile" rounded corner in white that you see in `line 254` of app.ts you'll see I pick 2 as I hard coded only 2 sessions in the database. Ideally a user would "create" a new session first thus creating a new ID in the database and a new tile. This could be a button or a 24 range from the time they possibly click a button that says "Start New Session"
+- I'm hard coding the user_session entries but this should ultimately come from the front-end. Each session is the tile on the home page, currently the app will add a new workout to user_session_id 2, need to figure out some interface that let's a user start a new session (new tile) and append their entered workouts to it. Maybe a button that says "Start New Session" and then starts a timer for 24 hours for that tile to be opened and let workouts be entered for it. Or with a Start New Session button and a End Session button which would close the session so any new workouts entered will not be accepted.
 
 - If you add a workout again you'll see it will append to the second card / tile at the bottom
 
