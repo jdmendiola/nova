@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Root from './routes/root';
 import New from './routes/new';
+import DynamicLinks from './routes/dynamiclinks';
 import ErrorPage from './error-page';
 import DeleteSession from './routes/delete';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: '/delete/workout_session/:itemId',
     element: <DeleteSession />,
+  },
+  {
+    path: '/dynamic-links',
+    element: <DynamicLinks />,
   },
 ]);
 
