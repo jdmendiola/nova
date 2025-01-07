@@ -446,7 +446,7 @@ input {
 .carousel-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  width: 100%;
   gap: 20px;
 }
 
@@ -471,6 +471,11 @@ input {
   list-style: none;
   padding: 0;
   margin: 0;
+  width: 100%;
+}
+
+.carousel-list ul {
+  justify-content: center;
 }
 
 .carousel-list li {
