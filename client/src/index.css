@@ -377,7 +377,6 @@ input {
 .dynamic-link-container {
   padding: 30px;
   width: 100%;
-  overflow: hidden;
 }
 
 .dynamic-link-container ul {

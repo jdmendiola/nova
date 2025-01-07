@@ -112,6 +112,14 @@ export default function DynamicLinks() {
                 side separated by a separator element
               </p>
 
+              <p>
+                The links are displayed in a carousel when the container is
+                overflowing this ensures that links are not cut off and are
+                visible to the user
+              </p>
+
+              <h2 id="tileHeader">Example:</h2>
+
               <div className="dynamic-link-container" ref={containerRef}>
                 {isOverflowing ? (
                   <div className="carousel-container">
