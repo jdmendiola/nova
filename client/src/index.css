@@ -374,6 +374,44 @@ input {
   background-color: #82a4d2;
 }
 
+.dynamic-link-container {
+  padding: 30px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.dynamic-link-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.dynamic-link-container ul li {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.dynamic-link-container ul li a {
+  white-space: nowrap;
+  color: #3596aa;
+  text-decoration: none;
+}
+
+.dynamic-link-container ul li a:hover {
+  text-decoration: underline;
+}
+
+.dynamic-link-container ul li:not(:last-child)::after {
+  content: '|';
+  padding: 0 8px;
+  color: #cacaca;
+}
+
 @media (max-width: 999px) {
   .container,
   #launch-column,
@@ -404,4 +442,49 @@ input {
     min-width: 100%;
     width: fit-content;
   }
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.carousel-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: #3596aa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-button:hover {
+  color: #2a7082;
+}
+
+.carousel-list {
+  justify-content: center;
+  min-width: 200px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.carousel-list li {
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-list li a {
+  white-space: normal;
+  color: #3596aa;
+  text-decoration: none;
+}
+
+.carousel-list li a:hover {
+  text-decoration: underline;
 }

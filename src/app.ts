@@ -10,16 +10,37 @@ import { workouts } from './db/schema';
 import { exercises } from './db/schema';
 import { sql, eq, asc, desc } from 'drizzle-orm';
 import path from 'path';
+import { createProxyMiddleware as proxy } from 'http-proxy-middleware';
 
-//const sqlite = new Database('/data/nova1.db');
-const sqlite = new Database('./novatest.db');
-console.log(sqlite);
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
+const sqlite = isDevelopment
+  ? new Database('./novatest.db')
+  : new Database('/data/nova1.db');
+
 const db = drizzle(sqlite);
 migrate(db, { migrationsFolder: './migrations' });
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
+if (isDevelopment) {
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    } else {
+      // Proxy to Vite dev server in development
+      const proxyMiddleware = proxy({
+        target: 'http://localhost:5173',
+        changeOrigin: true,
+        ws: true,
+      });
+      proxyMiddleware(req, res, next);
+    }
+  });
+} else {
+  // Serve static files in production
+  app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
+}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
